@@ -1,0 +1,49 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+class CompanyProblem {
+  public static int[] maximizeEarnings(List<int[]> allJobs) {
+    Collections.sort(allJobs, (a, b) -> b[2] - a[2]);
+
+      int numOfJobLeft = allJobs.size();
+    int earnings = 0;
+
+    int startTime = 2359;
+    int endTime = 0;
+
+    for (int[] job : allJobs) {
+      if (job[0] >= endTime) {
+        startTime = job[0];
+        endTime = job[1];
+        numOfJobLeft--;
+      } else {
+               earnings += job[2];
+      }
+    }
+    return new int[] {numOfJobLeft, earnings};
+  }
+
+  public static void main(String[] args) {
+	  Scanner sc=new Scanner(System.in);
+  	  
+	  System.out.print("Enter the number of Jobs: ");
+	    int n = sc.nextInt();
+
+	    List<int[]> jobs = new ArrayList<>();
+	    System.out.println("Enter job start time, end time, and earnings:");
+	    for (int i = 0; i < n; i++) {
+	      int startTime = sc.nextInt();
+	      int endTime = sc.nextInt();
+	      int totalProfit = sc.nextInt();
+	      jobs.add(new int[]{startTime,endTime,totalProfit});
+	    }
+
+	      int[] maximizeEarnings = maximizeEarnings(jobs);
+	     System.out.println("The number of tasks and earnings available for others");
+	     System.out.println("Task: " + maximizeEarnings[0]);
+	     System.out.println("Earnings: " + maximizeEarnings[1]);
+	     sc.close();
+  }
+}
